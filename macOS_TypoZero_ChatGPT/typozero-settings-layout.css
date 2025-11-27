@@ -1,0 +1,298 @@
+/* =========================================
+   TypoZero Settings Window Layout
+   - window chrome / sidebar / content
+   - 4 screens: General / Shortcuts / Advanced / About
+   ========================================= */
+
+:root {
+    --tz-window-width: 700px;
+    --tz-window-height: 500px;
+}
+
+/* Outer app background (behind the glass window) */
+.tz-app-bg {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: radial-gradient(circle at top left, #e0f2fe, transparent 60%),
+        radial-gradient(circle at bottom right, #e5e7eb, transparent 55%),
+        #d1d5db;
+}
+
+:root[data-theme="dark"] .tz-app-bg {
+    background:
+        radial-gradient(circle at top left, #1d293b, transparent 55%),
+        radial-gradient(circle at bottom right, #020617, transparent 55%),
+        #020617;
+}
+
+/* macOS style window */
+.tz-window {
+    width: var(--tz-window-width);
+    height: var(--tz-window-height);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow:
+        0 18px 55px rgba(15, 23, 42, 0.4),
+        0 0 0 1px rgba(148, 163, 184, 0.4);
+    backdrop-filter: blur(24px);
+    background: linear-gradient(to bottom right,
+            rgba(255, 255, 255, 0.92),
+            rgba(255, 255, 255, 0.78));
+}
+
+:root[data-theme="dark"] .tz-window {
+    background: radial-gradient(circle at top left,
+            rgba(148, 163, 184, 0.16),
+            transparent 55%),
+        rgba(15, 23, 42, 0.95);
+}
+
+/* -----------------------------------------
+   Titlebar
+   ----------------------------------------- */
+
+.tz-window__titlebar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    -webkit-app-region: drag;
+}
+
+.tz-traffic-lights {
+    display: flex;
+    gap: 6px;
+}
+
+.tz-traffic-light {
+    width: 12px;
+    height: 12px;
+    border-radius: 999px;
+    border: 0.5px solid rgba(0, 0, 0, 0.12);
+}
+
+.tz-traffic-light--close {
+    background: #ff5f57;
+}
+
+.tz-traffic-light--minimize {
+    background: #febc2e;
+}
+
+.tz-traffic-light--zoom {
+    background: #28c840;
+}
+
+.tz-window__title {
+    margin-left: 8px;
+    font-size: 12px;
+    color: rgba(55, 65, 81, 0.9);
+}
+
+:root[data-theme="dark"] .tz-window__title {
+    color: rgba(209, 213, 219, 0.9);
+}
+
+/* -----------------------------------------
+   Window body: Sidebar + Content
+   ----------------------------------------- */
+
+.tz-window__body {
+    display: grid;
+    grid-template-columns: 200px minmax(0, 1fr);
+    height: calc(var(--tz-window-height) - 32px);
+    border-top: 1px solid rgba(148, 163, 184, 0.5);
+}
+
+/* Sidebar */
+.tz-sidebar {
+    padding: 12px 10px;
+    background: var(--tz-bg-sidebar);
+    border-right: 1px solid rgba(148, 163, 184, 0.45);
+    backdrop-filter: blur(20px);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.tz-sidebar__section {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* Content area */
+.tz-content {
+    background: linear-gradient(to bottom,
+            rgba(255, 255, 255, 0.86),
+            rgba(248, 250, 252, 0.96));
+    padding: 16px 18px;
+    overflow: auto;
+}
+
+:root[data-theme="dark"] .tz-content {
+    background: linear-gradient(to bottom,
+            rgba(15, 23, 42, 0.96),
+            rgba(15, 23, 42, 0.98));
+}
+
+/* Content header */
+.tz-content-header {
+    margin-bottom: 14px;
+}
+
+.tz-content-header__title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--tz-text-main);
+}
+
+.tz-content-header__description {
+    margin-top: 2px;
+    font-size: 12px;
+    color: var(--tz-text-muted);
+}
+
+/* Settings grid layout inside a screen */
+.tz-settings-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Grouped card usage (rely on .tz-settings-group from components.css) */
+.tz-settings-group--compact {
+    padding: 12px 14px;
+}
+
+/* -----------------------------------------
+   Screens (General / Shortcuts / Advanced / About)
+   ----------------------------------------- */
+
+/* 共通: screen container */
+.tz-screen {
+    display: none;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.tz-screen[data-active="true"] {
+    display: flex;
+}
+
+/* General screen */
+.tz-screen--general .tz-settings-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.tz-screen--general .tz-settings-row__label {
+    flex: 1;
+}
+
+.tz-screen--general .tz-settings-row__control {
+    min-width: 180px;
+}
+
+/* Shortcuts screen */
+.tz-screen--shortcuts .tz-shortcut-display {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: 1px solid var(--tz-border-subtle);
+    background: rgba(15, 23, 42, 0.02);
+    font-size: 12px;
+    color: var(--tz-text-muted);
+}
+
+:root[data-theme="dark"] .tz-screen--shortcuts .tz-shortcut-display {
+    background: rgba(15, 23, 42, 0.7);
+}
+
+/* Advanced screen */
+.tz-screen--advanced .tz-settings-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.tz-screen--advanced .tz-settings-row--inline {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* About screen */
+.tz-screen--about {
+    align-items: flex-start;
+}
+
+.tz-about-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.tz-about-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #0a84ff, #38bdf8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f9fafb;
+    font-weight: 700;
+    font-size: 22px;
+}
+
+.tz-about-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.tz-about-meta__name {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.tz-about-meta__version {
+    font-size: 12px;
+    color: var(--tz-text-muted);
+}
+
+.tz-about-links {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 12px;
+}
+
+.tz-about-link {
+    color: var(--tz-accent);
+    text-decoration: none;
+}
+
+.tz-about-link:hover {
+    text-decoration: underline;
+}
+
+/* Footer (optional, for buttons like "Restore Defaults") */
+.tz-content-footer {
+    margin-top: auto;
+    padding-top: 12px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    border-top: 1px solid rgba(148, 163, 184, 0.35);
+}

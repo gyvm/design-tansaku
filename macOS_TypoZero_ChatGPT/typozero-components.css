@@ -1,0 +1,549 @@
+/* =========================================
+   TypoZero Component Library
+   - base tokens
+   - buttons / inputs / cards / sidebar items
+   - light & dark theme support
+   ========================================= */
+
+:root {
+    /* Color tokens: Light mode */
+    --tz-bg-elevated: rgba(255, 255, 255, 0.85);
+    --tz-bg-elevated-subtle: rgba(255, 255, 255, 0.65);
+    --tz-bg-surface: #f5f6f8;
+    --tz-bg-sidebar: rgba(245, 246, 248, 0.85);
+    --tz-border-subtle: rgba(0, 0, 0, 0.06);
+    --tz-border-strong: rgba(0, 0, 0, 0.16);
+
+    --tz-accent: #0a84ff;
+    /* system blueイメージ */
+    --tz-accent-soft: rgba(10, 132, 255, 0.14);
+
+    --tz-text-main: #111827;
+    --tz-text-muted: #6b7280;
+    --tz-text-weak: #9ca3af;
+    --tz-text-on-accent: #ffffff;
+    --tz-text-danger: #b91c1c;
+
+    --tz-danger: #ef4444;
+    --tz-danger-soft: rgba(239, 68, 68, 0.12);
+
+    --tz-warning: #f59e0b;
+    --tz-warning-soft: rgba(245, 158, 11, 0.10);
+
+    /* Shadows / blur */
+    --tz-shadow-soft: 0 12px 40px rgba(15, 23, 42, 0.16);
+    --tz-backdrop-blur: 22px;
+
+    /* Radii */
+    --tz-radius-xs: 4px;
+    --tz-radius-sm: 6px;
+    --tz-radius-md: 8px;
+    --tz-radius-lg: 10px;
+
+    /* Typography */
+    --tz-font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        system-ui, sans-serif;
+    --tz-font-size-xs: 11px;
+    --tz-font-size-sm: 12px;
+    --tz-font-size-md: 13px;
+    --tz-font-size-lg: 15px;
+
+    /* Spacing scale */
+    --tz-space-1: 4px;
+    --tz-space-2: 8px;
+    --tz-space-3: 12px;
+    --tz-space-4: 16px;
+    --tz-space-5: 20px;
+    --tz-space-6: 24px;
+
+    /* Transitions */
+    --tz-transition-fast: 120ms ease-out;
+    --tz-transition-normal: 160ms ease-out;
+
+    /* Focus ring */
+    --tz-focus-ring: 0 0 0 2px rgba(10, 132, 255, 0.45);
+}
+
+/* Dark mode override */
+:root[data-theme="dark"] {
+    --tz-bg-elevated: rgba(20, 24, 32, 0.88);
+    --tz-bg-elevated-subtle: rgba(20, 24, 32, 0.76);
+    --tz-bg-surface: #050712;
+    --tz-bg-sidebar: rgba(15, 23, 42, 0.9);
+    --tz-border-subtle: rgba(148, 163, 184, 0.18);
+    --tz-border-strong: rgba(148, 163, 184, 0.35);
+
+    --tz-accent: #0a84ff;
+    --tz-accent-soft: rgba(56, 189, 248, 0.18);
+    /* 少しだけ彩度高め */
+
+    --tz-text-main: #e5e7eb;
+    --tz-text-muted: #9ca3af;
+    --tz-text-weak: #6b7280;
+    --tz-text-on-accent: #f9fafb;
+    --tz-text-danger: #fecaca;
+
+    --tz-danger: #f97373;
+    --tz-danger-soft: rgba(248, 113, 113, 0.24);
+
+    --tz-warning: #facc15;
+    --tz-warning-soft: rgba(250, 204, 21, 0.18);
+
+    --tz-shadow-soft: 0 18px 55px rgba(0, 0, 0, 0.65);
+}
+
+/* Base reset for TypoZero components scope */
+.tz-root {
+    font-family: var(--tz-font-family);
+    color: var(--tz-text-main);
+    font-size: var(--tz-font-size-md);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Glassy container (for cards / modals) */
+.tz-glass-surface {
+    background: var(--tz-bg-elevated);
+    border-radius: var(--tz-radius-md);
+    border: 1px solid var(--tz-border-subtle);
+    box-shadow: var(--tz-shadow-soft);
+    backdrop-filter: blur(var(--tz-backdrop-blur));
+}
+
+/* -----------------------------------------
+   BUTTONS
+   ----------------------------------------- */
+
+.tz-button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    padding: 6px 14px;
+    min-height: 28px;
+
+    font-family: inherit;
+    font-size: var(--tz-font-size-sm);
+    font-weight: 500;
+
+    border-radius: var(--tz-radius-sm);
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--tz-text-main);
+
+    cursor: pointer;
+    user-select: none;
+
+    transition:
+        background-color var(--tz-transition-fast),
+        box-shadow var(--tz-transition-fast),
+        border-color var(--tz-transition-fast),
+        color var(--tz-transition-fast),
+        transform var(--tz-transition-fast);
+}
+
+/* Primary button */
+.tz-button--primary {
+    background: var(--tz-accent);
+    color: var(--tz-text-on-accent);
+    border-color: rgba(15, 23, 42, 0.12);
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.3);
+}
+
+.tz-button--primary:hover:not(:disabled) {
+    background: linear-gradient(to bottom,
+            rgba(255, 255, 255, 0.12),
+            rgba(0, 0, 0, 0.16)), var(--tz-accent);
+    transform: translateY(-0.5px);
+}
+
+.tz-button--primary:active:not(:disabled) {
+    transform: translateY(0.5px);
+    box-shadow: 0 0 0 transparent;
+}
+
+/* Secondary (outlined) */
+.tz-button--secondary {
+    background: var(--tz-bg-elevated-subtle);
+    border-color: var(--tz-border-subtle);
+    color: var(--tz-text-main);
+}
+
+.tz-button--secondary:hover:not(:disabled) {
+    background: var(--tz-accent-soft);
+}
+
+/* Destructive */
+.tz-button--destructive {
+    background: var(--tz-danger-soft);
+    border-color: rgba(239, 68, 68, 0.4);
+    color: var(--tz-text-danger);
+}
+
+.tz-button--destructive:hover:not(:disabled) {
+    background: var(--tz-danger);
+    color: var(--tz-text-on-accent);
+}
+
+/* Icon button (circular) */
+.tz-button--icon {
+    padding: 4px;
+    min-height: 24px;
+    width: 24px;
+    border-radius: 999px;
+    border-color: transparent;
+    background: transparent;
+}
+
+.tz-button--icon:hover:not(:disabled) {
+    background: var(--tz-accent-soft);
+}
+
+/* Disabled & focus states */
+.tz-button:disabled {
+    opacity: 0.45;
+    cursor: default;
+    box-shadow: none;
+}
+
+.tz-button:focus-visible {
+    outline: none;
+    box-shadow: var(--tz-focus-ring);
+}
+
+/* Toggle switch */
+.tz-toggle {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: var(--tz-font-size-sm);
+    color: var(--tz-text-main);
+}
+
+.tz-toggle__track {
+    position: relative;
+    width: 36px;
+    height: 20px;
+    border-radius: 999px;
+    background: rgba(148, 163, 184, 0.45);
+    border: 1px solid rgba(148, 163, 184, 0.7);
+    transition: background-color var(--tz-transition-fast),
+        border-color var(--tz-transition-fast);
+}
+
+.tz-toggle__thumb {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    width: 16px;
+    height: 16px;
+    border-radius: 999px;
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.35);
+    transition: transform var(--tz-transition-fast);
+}
+
+/* checked state (e.g., use data-checked="true" on .tz-toggle) */
+.tz-toggle[data-checked="true"] .tz-toggle__track {
+    background: var(--tz-accent);
+    border-color: rgba(15, 23, 42, 0.22);
+}
+
+.tz-toggle[data-checked="true"] .tz-toggle__thumb {
+    transform: translateX(16px);
+}
+
+/* -----------------------------------------
+   INPUT CONTROLS
+   ----------------------------------------- */
+
+.tz-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: var(--tz-font-size-sm);
+}
+
+.tz-field__label {
+    font-weight: 500;
+    color: var(--tz-text-main);
+}
+
+.tz-field__hint {
+    font-size: var(--tz-font-size-xs);
+    color: var(--tz-text-muted);
+}
+
+/* Text field */
+.tz-text-input {
+    width: 100%;
+    min-height: 28px;
+    padding: 5px 8px;
+    border-radius: var(--tz-radius-sm);
+    border: 1px solid var(--tz-border-subtle);
+    background: rgba(255, 255, 255, 0.85);
+    color: var(--tz-text-main);
+    font-family: inherit;
+    font-size: var(--tz-font-size-sm);
+
+    transition:
+        border-color var(--tz-transition-fast),
+        box-shadow var(--tz-transition-fast),
+        background-color var(--tz-transition-fast);
+}
+
+:root[data-theme="dark"] .tz-text-input {
+    background: rgba(15, 23, 42, 0.75);
+}
+
+.tz-text-input:hover {
+    border-color: var(--tz-border-strong);
+}
+
+.tz-text-input:focus-visible {
+    outline: none;
+    border-color: var(--tz-accent);
+    box-shadow: var(--tz-focus-ring);
+}
+
+/* Select / dropdown */
+.tz-select {
+    appearance: none;
+    -webkit-appearance: none;
+    background:
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.12), transparent),
+        rgba(255, 255, 255, 0.8);
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 10px 10px;
+
+    padding-right: 24px;
+    border-radius: var(--tz-radius-sm);
+    border: 1px solid var(--tz-border-subtle);
+    font-size: var(--tz-font-size-sm);
+    color: var(--tz-text-main);
+}
+
+:root[data-theme="dark"] .tz-select {
+    background:
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.04), transparent),
+        rgba(15, 23, 42, 0.85);
+}
+
+/* Checkbox */
+.tz-checkbox {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: var(--tz-font-size-sm);
+    color: var(--tz-text-main);
+}
+
+.tz-checkbox__box {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    border: 1px solid var(--tz-border-strong);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    background: rgba(255, 255, 255, 0.9);
+    transition:
+        background-color var(--tz-transition-fast),
+        border-color var(--tz-transition-fast),
+        box-shadow var(--tz-transition-fast);
+}
+
+:root[data-theme="dark"] .tz-checkbox__box {
+    background: rgba(15, 23, 42, 0.85);
+}
+
+.tz-checkbox[data-checked="true"] .tz-checkbox__box {
+    background: var(--tz-accent);
+    border-color: rgba(15, 23, 42, 0.4);
+    color: var(--tz-text-on-accent);
+}
+
+/* Slider */
+.tz-slider-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tz-slider-row__value {
+    font-size: var(--tz-font-size-sm);
+    color: var(--tz-text-muted);
+    min-width: 40px;
+    text-align: right;
+}
+
+.tz-slider {
+    flex: 1;
+    appearance: none;
+    height: 4px;
+    border-radius: 999px;
+    background: rgba(148, 163, 184, 0.4);
+    outline: none;
+}
+
+.tz-slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 999px;
+    background: #ffffff;
+    border: 1px solid rgba(148, 163, 184, 0.7);
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.4);
+    cursor: pointer;
+}
+
+:root[data-theme="dark"] .tz-slider::-webkit-slider-thumb {
+    background: rgba(15, 23, 42, 0.9);
+    border-color: rgba(148, 163, 184, 0.9);
+}
+
+/* Segmented control */
+.tz-segmented {
+    display: inline-flex;
+    border-radius: var(--tz-radius-md);
+    padding: 2px;
+    background: rgba(148, 163, 184, 0.18);
+}
+
+.tz-segmented__item {
+    padding: 4px 10px;
+    font-size: var(--tz-font-size-xs);
+    border-radius: calc(var(--tz-radius-md) - 2px);
+    cursor: pointer;
+    color: var(--tz-text-muted);
+    transition:
+        background-color var(--tz-transition-fast),
+        color var(--tz-transition-fast);
+}
+
+.tz-segmented__item[data-selected="true"] {
+    background: var(--tz-bg-elevated);
+    color: var(--tz-text-main);
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.16);
+}
+
+/* -----------------------------------------
+   INFORMATION CARDS
+   ----------------------------------------- */
+
+.tz-note-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 8px 10px;
+    border-radius: var(--tz-radius-md);
+    font-size: var(--tz-font-size-xs);
+    line-height: 1.4;
+}
+
+.tz-note-card__icon {
+    margin-top: 1px;
+    font-size: 13px;
+}
+
+/* Info */
+.tz-note-card--info {
+    background: var(--tz-accent-soft);
+    color: var(--tz-text-main);
+}
+
+/* Warning */
+.tz-note-card--warning {
+    background: var(--tz-warning-soft);
+    color: var(--tz-text-main);
+}
+
+/* -----------------------------------------
+   TYPO / HEADERS / DIVIDERS
+   ----------------------------------------- */
+
+.tz-section-header {
+    font-size: var(--tz-font-size-sm);
+    font-weight: 600;
+    color: var(--tz-text-main);
+}
+
+.tz-section-header__description {
+    font-size: var(--tz-font-size-xs);
+    color: var(--tz-text-muted);
+    margin-top: 2px;
+}
+
+.tz-divider {
+    height: 1px;
+    background: linear-gradient(to right,
+            transparent,
+            rgba(148, 163, 184, 0.4),
+            transparent);
+    margin: var(--tz-space-3) 0;
+}
+
+/* -----------------------------------------
+   SIDEBAR ITEMS
+   ----------------------------------------- */
+
+.tz-sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: var(--tz-radius-md);
+    font-size: var(--tz-font-size-sm);
+    color: var(--tz-text-muted);
+    cursor: pointer;
+    transition:
+        background-color var(--tz-transition-fast),
+        color var(--tz-transition-fast);
+}
+
+.tz-sidebar-item:hover {
+    background: rgba(148, 163, 184, 0.16);
+    color: var(--tz-text-main);
+}
+
+.tz-sidebar-item[data-selected="true"] {
+    background: rgba(148, 163, 184, 0.22);
+    color: var(--tz-text-main);
+}
+
+/* Sidebar section header */
+.tz-sidebar-section-header {
+    font-size: var(--tz-font-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--tz-text-weak);
+    margin: var(--tz-space-2) 10px var(--tz-space-1);
+}
+
+/* -----------------------------------------
+   SETTINGS GROUP CARD / MODAL
+   ----------------------------------------- */
+
+.tz-settings-group {
+    padding: var(--tz-space-4);
+    border-radius: var(--tz-radius-lg);
+    background: var(--tz-bg-elevated);
+    border: 1px solid var(--tz-border-subtle);
+    backdrop-filter: blur(var(--tz-backdrop-blur));
+}
+
+.tz-settings-group+.tz-settings-group {
+    margin-top: var(--tz-space-4);
+}
+
+.tz-modal {
+    max-width: 420px;
+    padding: var(--tz-space-5);
+}
