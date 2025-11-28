@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings - Auralog</title>
+  <link rel="stylesheet" href="../design-system.css">
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    .settings-layout {
+      display: flex;
+      height: 100vh;
+    }
+
+    /* Settings Sidebar */
+    .settings-sidebar {
+      width: 260px;
+      background: var(--color-surface);
+      border-right: 1px solid var(--color-border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+
+    .settings-header {
+      padding: var(--space-6);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .settings-nav {
+      flex: 1;
+      padding: var(--space-4);
+      overflow-y: auto;
+    }
+
+    .nav-group {
+      margin-bottom: var(--space-6);
+    }
+
+    .nav-group-title {
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0 var(--space-3);
+      margin-bottom: var(--space-3);
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-3);
+      border-radius: var(--radius-md);
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      font-size: var(--font-size-body-sm);
+      font-weight: var(--font-weight-medium);
+      text-decoration: none;
+    }
+
+    .nav-item:hover {
+      background: var(--color-surface-hover);
+      color: var(--color-text-primary);
+    }
+
+    .nav-item.active {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+    }
+
+    /* Settings Content */
+    .settings-content {
+      flex: 1;
+      overflow-y: auto;
+      background: var(--color-background);
+    }
+
+    .content-header {
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      padding: var(--space-8);
+    }
+
+    .content-title {
+      margin-bottom: var(--space-2);
+    }
+
+    .content-description {
+      color: var(--color-text-secondary);
+      max-width: 600px;
+    }
+
+    .content-body {
+      padding: var(--space-8);
+      max-width: 800px;
+    }
+
+    /* Settings Section */
+    .settings-section {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-6);
+      margin-bottom: var(--space-6);
+    }
+
+    .section-header {
+      margin-bottom: var(--space-6);
+    }
+
+    .section-title {
+      font-size: var(--font-size-h4);
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--space-2);
+    }
+
+    .section-description {
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-body-sm);
+    }
+
+    /* Settings Row */
+    .settings-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding: var(--space-5) 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .settings-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .settings-row:first-child {
+      padding-top: 0;
+    }
+
+    .setting-info {
+      flex: 1;
+      margin-right: var(--space-6);
+    }
+
+    .setting-label {
+      font-weight: var(--font-weight-medium);
+      margin-bottom: var(--space-1);
+    }
+
+    .setting-description {
+      font-size: var(--font-size-body-sm);
+      color: var(--color-text-secondary);
+      line-height: var(--line-height-relaxed);
+    }
+
+    .setting-control {
+      flex-shrink: 0;
+      min-width: 200px;
+    }
+
+    /* Toggle Switch */
+    .toggle {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 24px;
+    }
+
+    .toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .toggle-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--color-border);
+      transition: var(--transition-fast);
+      border-radius: var(--radius-full);
+    }
+
+    .toggle-slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background: white;
+      transition: var(--transition-fast);
+      border-radius: 50%;
+    }
+
+    .toggle input:checked + .toggle-slider {
+      background: var(--color-primary);
+    }
+
+    .toggle input:checked + .toggle-slider:before {
+      transform: translateX(20px);
+    }
+
+    /* Storage Bar */
+    .storage-bar {
+      margin-top: var(--space-4);
+    }
+
+    .storage-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: var(--space-2);
+      font-size: var(--font-size-body-sm);
+    }
+
+    .storage-used {
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .storage-total {
+      color: var(--color-text-tertiary);
+    }
+
+    .storage-progress {
+      height: 8px;
+      background: var(--color-border-subtle);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+    }
+
+    .storage-progress-fill {
+      height: 100%;
+      background: var(--color-primary-gradient);
+      border-radius: var(--radius-full);
+      width: 24%;
+      transition: width var(--transition-normal);
+    }
+
+    /* Plan Card */
+    .plan-card {
+      background: var(--color-background);
+      border: 2px solid var(--color-primary);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      margin-bottom: var(--space-4);
+    }
+
+    .plan-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-4);
+    }
+
+    .plan-name {
+      font-size: var(--font-size-h3);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .plan-badge {
+      padding: var(--space-1) var(--space-3);
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .plan-price {
+      font-size: var(--font-size-h2);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-2);
+    }
+
+    .plan-price span {
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-regular);
+      color: var(--color-text-secondary);
+    }
+
+    .plan-features {
+      list-style: none;
+      padding: 0;
+    }
+
+    .plan-features li {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) 0;
+      font-size: var(--font-size-body-sm);
+    }
+
+    .plan-features li svg {
+      color: var(--color-success);
+      flex-shrink: 0;
+    }
+
+    /* API Key Display */
+    .api-key-display {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-4);
+      background: var(--color-background);
+      border-radius: var(--radius-md);
+      font-family: var(--font-family-mono);
+      font-size: var(--font-size-body-sm);
+    }
+
+    .api-key-value {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* Danger Zone */
+    .danger-zone {
+      background: var(--color-error-light);
+      border: 1px solid var(--color-error);
+      border-radius: var(--radius-xl);
+      padding: var(--space-6);
+    }
+
+    .danger-zone .section-title {
+      color: var(--color-error);
+    }
+
+    /* Radio Group */
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-4);
+      background: var(--color-background);
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .radio-option:hover {
+      border-color: var(--color-primary);
+    }
+
+    .radio-option.selected {
+      border-color: var(--color-primary);
+      background: var(--color-primary-light);
+    }
+
+    .radio-button {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--color-border);
+      border-radius: 50%;
+      position: relative;
+      flex-shrink: 0;
+      transition: all var(--transition-fast);
+    }
+
+    .radio-option.selected .radio-button {
+      border-color: var(--color-primary);
+    }
+
+    .radio-option.selected .radio-button::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 10px;
+      height: 10px;
+      background: var(--color-primary);
+      border-radius: 50%;
+    }
+
+    .radio-content {
+      flex: 1;
+    }
+
+    .radio-label {
+      font-weight: var(--font-weight-medium);
+      margin-bottom: var(--space-1);
+    }
+
+    .radio-description {
+      font-size: var(--font-size-caption);
+      color: var(--color-text-tertiary);
+    }
+  </style>
+</head>
+<body>
+  <div class="theme-toggle">
+    <button class="btn btn-secondary btn-icon" onclick="toggleTheme()">
+      <svg class="icon" viewBox="0 0 24 24">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+      </svg>
+    </button>
+  </div>
+
+  <div class="settings-layout">
+    <!-- Settings Sidebar -->
+    <aside class="settings-sidebar">
+      <div class="settings-header">
+        <h3>Settings</h3>
+      </div>
+
+      <nav class="settings-nav">
+        <div class="nav-group">
+          <div class="nav-group-title">General</div>
+          <a href="#" class="nav-item active">
+            <svg class="icon icon-sm" viewBox="0 0 24 24">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            Account
+          </a>
+          <a href="#" class="nav-item">
+            <svg class="icon icon-sm" viewBox="0 0 24 24">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            Security
+          </a>
+          <a href="#" class="nav-item">
+            <svg class="icon icon-sm" viewBox="0 0 24 24">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+            Notifications
+          </a>
+        </div>
+
+        <div class="nav-group">
+          <div class="nav-group-title">Processing</div>
+          <a href="#" class="nav-item">
+            <svg class="icon icon-sm" viewBox="0 0 24 24">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Export Formats
+          </a>
+          <a href="#" class="nav-item">
+            <svg class="icon icon-sm" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M12 1v6m0 6v6"></path>
+              <path d="m4.93 4.93 4.24 4.24m5.66 5.66 4.24 4.24"></path>
+              <path d="M1 12h6m6 0h6"></path>
+              <path d="m4.93 19.07 4.24-4.24m5.66-5.66 4.24-4.24"></path>
+            </svg>
+            AI Parameters
+          </a>
+          <a href="#" class="nav-item">
+            <svg class="icon icon-sm" viewBox="0 0 24 24">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+              <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+            Storage
+          </a>
+        </div>
+
+        <div class="nav-group">
+          <div class="nav-group-title">Advanced</div>
+          <a href="#" class="nav-item">
+            <svg class="icon icon-sm" viewBox="0 0 24 24">
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+            </svg>
+            API Access
+          </a>
+          <a href="#" class="nav-item">
+            <svg class="icon icon-sm" viewBox="0 0 24 24">
+              <path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z"></path>
+            </svg>
+            Integrations
+          </a>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Settings Content -->
+    <main class="settings-content">
+      <div class="content-header">
+        <h1 class="content-title">Account Settings</h1>
+        <p class="content-description">Manage your account information, subscription, and preferences</p>
+      </div>
+
+      <div class="content-body">
+        <!-- Profile Section -->
+        <div class="settings-section">
+          <div class="section-header">
+            <h3 class="section-title">Profile Information</h3>
+            <p class="section-description">Update your personal information and profile details</p>
+          </div>
+
+          <div class="settings-row">
+            <div class="setting-info">
+              <div class="setting-label">Full Name</div>
+              <div class="setting-description">Your name as it appears on your account</div>
+            </div>
+            <div class="setting-control">
+              <input type="text" class="input" value="John Doe">
+            </div>
+          </div>
+
+          <div class="settings-row">
+            <div class="setting-info">
+              <div class="setting-label">Email Address</div>
+              <div class="setting-description">Primary email for notifications and account recovery</div>
+            </div>
+            <div class="setting-control">
+              <input type="email" class="input" value="john.doe@example.com">
+            </div>
+          </div>
+
+          <div class="settings-row">
+            <div class="setting-info">
+              <div class="setting-label">Language</div>
+              <div class="setting-description">Choose your preferred interface language</div>
+            </div>
+            <div class="setting-control">
+              <select class="input">
+                <option selected>English (US)</option>
+                <option>English (UK)</option>
+                <option>Spanish</option>
+                <option>French</option>
+                <option>German</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Subscription Section -->
+        <div class="settings-section">
+          <div class="section-header">
+            <h3 class="section-title">Subscription Plan</h3>
+            <p class="section-description">Manage your subscription and billing information</p>
+          </div>
+
+          <div class="plan-card">
+            <div class="plan-header">
+              <div class="plan-name">Professional Plan</div>
+              <div class="plan-badge">CURRENT PLAN</div>
+            </div>
+            <div class="plan-price">$29<span>/month</span></div>
+            <ul class="plan-features">
+              <li>
+                <svg class="icon icon-sm" viewBox="0 0 24 24">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                Unlimited recordings
+              </li>
+              <li>
+                <svg class="icon icon-sm" viewBox="0 0 24 24">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                10GB storage
+              </li>
+              <li>
+                <svg class="icon icon-sm" viewBox="0 0 24 24">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                Advanced AI features
+              </li>
+              <li>
+                <svg class="icon icon-sm" viewBox="0 0 24 24">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                Priority support
+              </li>
+              <li>
+                <svg class="icon icon-sm" viewBox="0 0 24 24">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                API access
+              </li>
+            </ul>
+          </div>
+
+          <div style="display: flex; gap: var(--space-3);">
+            <button class="btn btn-secondary">Change Plan</button>
+            <button class="btn btn-ghost">Manage Billing</button>
+          </div>
+        </div>
+
+        <!-- Export Preferences -->
+        <div class="settings-section">
+          <div class="section-header">
+            <h3 class="section-title">Export Preferences</h3>
+            <p class="section-description">Configure default export format and options</p>
+          </div>
+
+          <div class="settings-row">
+            <div class="setting-info">
+              <div class="setting-label">Default Export Format</div>
+              <div class="setting-description">Choose the default format for transcript exports</div>
+            </div>
+            <div class="setting-control">
+              <div class="radio-group">
+                <div class="radio-option selected">
+                  <div class="radio-button"></div>
+                  <div class="radio-content">
+                    <div class="radio-label">Markdown (.md)</div>
+                    <div class="radio-description">Plain text with formatting</div>
+                  </div>
+                </div>
+                <div class="radio-option">
+                  <div class="radio-button"></div>
+                  <div class="radio-content">
+                    <div class="radio-label">Microsoft Word (.docx)</div>
+                    <div class="radio-description">Editable document format</div>
+                  </div>
+                </div>
+                <div class="radio-option">
+                  <div class="radio-button"></div>
+                  <div class="radio-content">
+                    <div class="radio-label">PDF Document (.pdf)</div>
+                    <div class="radio-description">Fixed layout format</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-row">
+            <div class="setting-info">
+              <div class="setting-label">Include Timestamps</div>
+              <div class="setting-description">Add timestamp markers to exported transcripts</div>
+            </div>
+            <div class="setting-control">
+              <label class="toggle">
+                <input type="checkbox" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="settings-row">
+            <div class="setting-info">
+              <div class="setting-label">Include Speaker Labels</div>
+              <div class="setting-description">Show speaker identification in exports</div>
+            </div>
+            <div class="setting-control">
+              <label class="toggle">
+                <input type="checkbox" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI Settings -->
+        <div class="settings-section">
+          <div class="section-header">
+            <h3 class="section-title">AI Processing</h3>
+            <p class="section-description">Configure AI behavior and summarization preferences</p>
+          </div>
+
+          <div class="settings-row">
+            <div class="setting-info">
+              <div class="setting-label">Summarization Style</div>
+              <div class="setting-description">Control the tone and detail level of AI summaries</div>
+            </div>
+            <div class="setting-control">
+              <select class="input">
+                <option>Concise & Professional</option>
+                <option selected>Balanced</option>
+                <option>Detailed & Comprehensive</option>
+                <option>Technical & Precise</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="settings-row">
+            <div class="setting-info">
+              <div class="setting-label">Auto-Generate Action Items</div>
+              <div class="setting-description">Automatically identify tasks and action items from meetings</div>
+            </div>
+            <div class="setting-control">
+              <label class="toggle">
+                <input type="checkbox" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="settings-row">
+            <div class="setting-info">
+              <div class="setting-label">Speaker Diarization</div>
+              <div class="setting-description">Automatically identify and label different speakers</div>
+            </div>
+            <div class="setting-control">
+              <label class="toggle">
+                <input type="checkbox" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Storage Management -->
+        <div class="settings-section">
+          <div class="section-header">
+            <h3 class="section-title">Storage Management</h3>
+            <p class="section-description">Monitor and manage your storage usage</p>
+          </div>
+
+          <div class="storage-bar">
+            <div class="storage-info">
+              <span class="storage-used">2.4 GB used</span>
+              <span class="storage-total">of 10 GB</span>
+            </div>
+            <div class="storage-progress">
+              <div class="storage-progress-fill"></div>
+            </div>
+          </div>
+
+          <div class="settings-row">
+            <div class="setting-info">
+              <div class="setting-label">Auto-Delete Old Recordings</div>
+              <div class="setting-description">Automatically remove recordings after a specified period</div>
+            </div>
+            <div class="setting-control">
+              <select class="input">
+                <option>Never</option>
+                <option>After 30 days</option>
+                <option selected>After 90 days</option>
+                <option>After 180 days</option>
+                <option>After 1 year</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="margin-top: var(--space-4);">
+            <button class="btn btn-secondary">Clear Cache</button>
+          </div>
+        </div>
+
+        <!-- API Access -->
+        <div class="settings-section">
+          <div class="section-header">
+            <h3 class="section-title">API Access</h3>
+            <p class="section-description">Manage your API keys and integrations</p>
+          </div>
+
+          <div class="settings-row">
+            <div class="setting-info">
+              <div class="setting-label">API Key</div>
+              <div class="setting-description">Your secret key for API authentication</div>
+            </div>
+            <div class="setting-control" style="min-width: 300px;">
+              <div class="api-key-display">
+                <span class="api-key-value">sk_live_••••••••••••••••••••4a2f</span>
+                <button class="btn btn-ghost btn-icon btn-sm">
+                  <svg class="icon icon-sm" viewBox="0 0 24 24">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: var(--space-4);">
+            <button class="btn btn-secondary">Generate New Key</button>
+          </div>
+        </div>
+
+        <!-- Danger Zone -->
+        <div class="danger-zone">
+          <div class="section-header">
+            <h3 class="section-title">Danger Zone</h3>
+            <p class="section-description" style="color: var(--color-error);">Irreversible actions that affect your account</p>
+          </div>
+
+          <div class="settings-row">
+            <div class="setting-info">
+              <div class="setting-label">Delete All Recordings</div>
+              <div class="setting-description">Permanently remove all recordings and transcripts</div>
+            </div>
+            <div class="setting-control">
+              <button class="btn btn-destructive">Delete All</button>
+            </div>
+          </div>
+
+          <div class="settings-row">
+            <div class="setting-info">
+              <div class="setting-label">Delete Account</div>
+              <div class="setting-description">Permanently delete your account and all associated data</div>
+            </div>
+            <div class="setting-control">
+              <button class="btn btn-destructive">Delete Account</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Save Button -->
+        <div style="display: flex; justify-content: flex-end; gap: var(--space-3); margin-top: var(--space-8); padding-top: var(--space-6); border-top: 1px solid var(--color-border);">
+          <button class="btn btn-secondary">Cancel</button>
+          <button class="btn btn-primary">Save Changes</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    }
+
+    // Load saved theme
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+
+    // Radio option selection
+    const radioOptions = document.querySelectorAll('.radio-option');
+    radioOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        // Remove selected class from siblings
+        const group = option.parentElement;
+        group.querySelectorAll('.radio-option').forEach(opt => {
+          opt.classList.remove('selected');
+        });
+        // Add selected class to clicked option
+        option.classList.add('selected');
+      });
+    });
+  </script>
+</body>
+</html>
