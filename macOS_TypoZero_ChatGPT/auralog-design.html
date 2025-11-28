@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Auralog · Design System & Screens</title>
+  <link rel="stylesheet" href="auralog-style.css" />
+</head>
+<body>
+  <div class="app" data-theme="light">
+    <div class="wrapper">
+      <header class="header">
+        <div class="brand">
+          <div class="brand__logo">Au</div>
+          <div>
+            <div style="font-weight: 700; font-size: 18px;">Auralog</div>
+            <div style="color: var(--text-muted);">Soft Rounded Friendly UI kit</div>
+          </div>
+          <span class="badge">Light + Dark</span>
+        </div>
+        <button class="theme-toggle" onclick="toggleTheme()">
+          <span aria-hidden="true">🌗</span>
+          <span>Toggle theme</span>
+        </button>
+      </header>
+
+      <section class="panel">
+        <h3 class="section-title">Typography &amp; Color Tokens</h3>
+        <div class="grid two">
+          <div class="typography-sample card" aria-label="typography scale">
+            <h1>Title · 32</h1>
+            <h2>H1 · 26</h2>
+            <h3>H2 · 20</h3>
+            <h4>H3 · 17</h4>
+            <p>Body · 15 — calm, intelligent voice that emphasizes clarity.</p>
+            <small>Caption · 13 — timestamps, helper labels, secondary text.</small>
+          </div>
+          <div class="card" aria-label="color tokens">
+            <div class="token-row">
+              <div class="color-swatch" style="background: var(--primary); color:#fff;">Primary</div>
+              <div class="color-swatch" style="background: var(--bg-app);">Bg</div>
+              <div class="color-swatch" style="background: var(--bg-surface);">Surface</div>
+              <div class="color-swatch" style="background: var(--bg-subtle);">Subtle</div>
+              <div class="color-swatch" style="background: var(--success); color:#fff;">Success</div>
+              <div class="color-swatch" style="background: var(--warning); color:#fff;">Warning</div>
+              <div class="color-swatch" style="background: var(--error); color:#fff;">Error</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h3 class="section-title">Buttons &amp; Inputs</h3>
+        <div class="grid two">
+          <div class="card">
+            <div class="button-row">
+              <button class="btn primary">Primary</button>
+              <button class="btn secondary">Secondary</button>
+              <button class="btn ghost">Ghost</button>
+              <button class="btn destructive">Destructive</button>
+              <button class="btn icon-only" aria-label="icon button">+</button>
+              <button class="btn primary">Icon + Label</button>
+            </div>
+          </div>
+          <div class="grid two">
+            <div class="input-group">
+              <label>Text Field</label>
+              <input class="input" type="text" placeholder="Speaker name" />
+            </div>
+            <div class="dropzone">Drop audio here or browse</div>
+            <div class="select">
+              <span>Language</span>
+              <select class="input">
+                <option>English (US)</option>
+                <option>German</option>
+              </select>
+            </div>
+            <div class="toggle">
+              <span>Speaker diarization</span>
+              <div class="toggle-pill is-on"></div>
+            </div>
+            <div class="slider">
+              <span>Audio scrubber</span>
+              <input type="range" value="60" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h3 class="section-title">Cards &amp; Navigation</h3>
+        <div class="grid two">
+          <div class="grid three">
+            <div class="card recording-card">
+              <h4>Recording Item</h4>
+              <p>Duration · 52:17 · 2 speakers</p>
+              <div class="waveform"></div>
+            </div>
+            <div class="card">
+              <h4>AI Processing</h4>
+              <p>Status: Summarizing</p>
+              <div class="progress-bar"><span></span></div>
+            </div>
+            <div class="card">
+              <h4>Analytics</h4>
+              <p>Meetings this week: 6 · Avg clarity 94%</p>
+            </div>
+          </div>
+          <div class="sidebar-sample">
+            <div class="sidebar">
+              <button class="is-active">Dashboard</button>
+              <button>Projects</button>
+              <button>Settings</button>
+              <button>Help</button>
+            </div>
+            <div class="topbar">
+              <div class="breadcrumbs">Projects / Auralog</div>
+              <div class="nav">
+                <button class="btn ghost">Search</button>
+                <button class="btn primary">New Import</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h3 class="section-title">System Components</h3>
+        <div class="system-row">
+          <div class="modal">
+            <strong>Modal</strong>
+            <p>Request AI rerun with updated prompt?</p>
+            <div class="action-row">
+              <button class="btn secondary">Cancel</button>
+              <button class="btn primary">Run</button>
+            </div>
+          </div>
+          <div class="toast">
+            <strong>Toast</strong>
+            <p>Transcript regenerated with action items.</p>
+          </div>
+          <div class="progress">
+            <strong>Progress</strong>
+            <div class="progress-bar"><span></span></div>
+            <div class="c-progress"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h3 class="section-title">Screens (Light &amp; Dark)</h3>
+        <div class="grid two">
+          <div class="screen-mock">
+            <div class="screen-header">
+              <div>
+                <div class="screen-title">Onboarding</div>
+                <p class="responsive-note">Calm hero, CTA to import audio or view sample.</p>
+              </div>
+              <button class="btn primary">Import Audio</button>
+            </div>
+            <div class="audio-tile">
+              <strong>"Convert speech into structured knowledge."</strong>
+              <p>Soft gradient illustration, friendly spacing.</p>
+            </div>
+            <div class="action-row">
+              <button class="btn secondary">View Sample Project</button>
+              <button class="btn ghost">Learn how it works</button>
+            </div>
+          </div>
+
+          <div class="screen-mock">
+            <div class="screen-header">
+              <div class="screen-title">Dashboard</div>
+              <div class="action-row">
+                <button class="btn secondary">New Import</button>
+                <button class="btn ghost">Create Folder</button>
+              </div>
+            </div>
+            <div class="grid two">
+              <div class="project-card">
+                <strong>Design Sync</strong>
+                <p>Updated 2h ago · 42m · Transcript ready</p>
+              </div>
+              <div class="project-card">
+                <strong>Quarterly Review</strong>
+                <p>Yesterday · 1h12m · Summaries in progress</p>
+              </div>
+              <div class="project-card">
+                <strong>Research Interviews</strong>
+                <p>Sorted by date · folder view</p>
+              </div>
+              <div class="project-card">
+                <strong>Sales Calls</strong>
+                <p>Metadata: speakers, clarity, language</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="screen-mock">
+            <div class="screen-header">
+              <div class="screen-title">Recording Import</div>
+              <span class="badge">Wizard</span>
+            </div>
+            <div class="dropzone">Drag & drop audio files</div>
+            <div class="audio-tile">
+              <strong>design-review.wav</strong>
+              <p>52:17 · 2 speakers · English</p>
+            </div>
+            <div class="grid two">
+              <div class="select"><span>Language</span><select class="input"><option>English</option></select></div>
+              <div class="select"><span>AI Detail</span><select class="input"><option>Concise</option><option>Verbose</option></select></div>
+            </div>
+            <div class="toggle"><span>Speaker diarization</span><div class="toggle-pill is-on"></div></div>
+            <div class="progress-bar"><span></span></div>
+          </div>
+
+          <div class="screen-mock">
+            <div class="screen-header">
+              <div class="screen-title">Transcript + Notes</div>
+              <div class="action-row">
+                <button class="btn ghost">Search</button>
+                <button class="btn secondary">Export</button>
+                <button class="btn ghost">Regenerate</button>
+              </div>
+            </div>
+            <div class="grid two">
+              <div class="audio-tile">
+                <strong>00:05 · Alex</strong>
+                <p>"Let's finalize the launch narrative and owners."</p>
+                <strong>00:12 · Priya</strong>
+                <p>"Action items include QA sign-off and sales enablement."</p>
+              </div>
+              <div class="summary-card">
+                <strong>AI Notes</strong>
+                <p>Summary, decisions, action items with highlights per speaker.</p>
+              </div>
+            </div>
+            <div class="waveform"></div>
+          </div>
+
+          <div class="screen-mock">
+            <div class="screen-header">
+              <div class="screen-title">Settings</div>
+              <p class="responsive-note">Output formats, AI parameters, storage, account.</p>
+            </div>
+            <div class="settings-card">
+              <strong>Outputs</strong>
+              <p>Markdown, DOCX, PDF</p>
+            </div>
+            <div class="settings-card">
+              <strong>AI Parameters</strong>
+              <p>Temperature 0.4 · Summary style: action-focused</p>
+            </div>
+            <div class="settings-card">
+              <strong>Storage</strong>
+              <p>Auto-delete after 90 days · Manage local cache</p>
+            </div>
+            <div class="settings-card">
+              <strong>Account</strong>
+              <p>API key · Plan · Connected services</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h3 class="section-title">Responsive &amp; Motion</h3>
+        <p class="responsive-note">Narrow layouts shift grids to single column; toolbar groups wrap; cards stretch with consistent 16px padding.</p>
+        <p class="motion-note">Motion keeps easing subtle (120–200ms). Hover lifts, panel fade-ins, progress animations only. Avoid playful bounces.</p>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    function toggleTheme() {
+      const app = document.querySelector('.app');
+      const next = app.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      app.setAttribute('data-theme', next);
+    }
+  </script>
+</body>
+</html>
