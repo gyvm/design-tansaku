@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { GeneralSettings } from './components/GeneralSettings';
 import { HistorySettings } from './components/HistorySettings';
 import { AdvancedSettings } from './components/AdvancedSettings';
-import { LocalAISettings } from './components/LocalAISettings';
+import { AIModelSettings } from './components/AIModelSettings';
 import { CustomPromptSettings } from './components/CustomPromptSettings';
 import { DictionarySettings } from './components/DictionarySettings';
 import { AboutSettings } from './components/AboutSettings';
 
-type Screen = 'general' | 'history' | 'advanced' | 'local-ai' | 'custom-prompt' | 'dictionary' | 'about';
+type Screen = 'general' | 'history' | 'advanced' | 'ai-model' | 'custom-prompt' | 'dictionary' | 'about';
 
 type NavItem = {
   type: 'item';
@@ -28,13 +28,12 @@ export default function App() {
 
   const navStructure: NavEntry[] = [
     { type: 'item', id: 'general', label: '一般設定' },
-    { type: 'item', id: 'advanced', label: '詳細設定' },
-    { type: 'item', id: 'history', label: '校正履歴' },
     { type: 'header', label: '拡張設定' },
-    { type: 'item', id: 'local-ai', label: 'ローカルAI' },
+    { type: 'item', id: 'ai-model', label: 'AIモデル' },
     { type: 'item', id: 'custom-prompt', label: 'カスタムプロンプト' },
     { type: 'item', id: 'dictionary', label: '辞書・置換' },
     { type: 'header', label: 'その他' },
+    { type: 'item', id: 'history', label: '校正履歴' },
     { type: 'item', id: 'about', label: 'TYPOZEROについて' },
   ];
 
@@ -100,7 +99,7 @@ export default function App() {
               {activeScreen === 'general' && <GeneralSettings isDarkMode={isDarkMode} />}
               {activeScreen === 'history' && <HistorySettings isDarkMode={isDarkMode} />}
               {activeScreen === 'advanced' && <AdvancedSettings isDarkMode={isDarkMode} />}
-              {activeScreen === 'local-ai' && <LocalAISettings isDarkMode={isDarkMode} />}
+              {activeScreen === 'ai-model' && <AIModelSettings isDarkMode={isDarkMode} />}
               {activeScreen === 'custom-prompt' && <CustomPromptSettings isDarkMode={isDarkMode} />}
               {activeScreen === 'dictionary' && <DictionarySettings isDarkMode={isDarkMode} />}
               {activeScreen === 'about' && <AboutSettings isDarkMode={isDarkMode} />}
