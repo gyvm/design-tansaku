@@ -1,18 +1,18 @@
 import { useState } from 'react';
 import { GeneralSettings } from './components/GeneralSettings';
-import { ShortcutsSettings } from './components/ShortcutsSettings';
+import { HistorySettings } from './components/HistorySettings';
+import { AdvancedSettings } from './components/AdvancedSettings';
 import { LocalAISettings } from './components/LocalAISettings';
 import { CustomPromptSettings } from './components/CustomPromptSettings';
 import { DictionarySettings } from './components/DictionarySettings';
 import { AboutSettings } from './components/AboutSettings';
 
-type Screen = 'general' | 'shortcuts' | 'local-ai' | 'custom-prompt' | 'dictionary' | 'about';
+type Screen = 'general' | 'history' | 'advanced' | 'local-ai' | 'custom-prompt' | 'dictionary' | 'about';
 
 type NavItem = {
   type: 'item';
   id: Screen;
   label: string;
-  sublabel?: string;
 };
 
 type NavHeader = {
@@ -27,14 +27,15 @@ export default function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   const navStructure: NavEntry[] = [
-    { type: 'item', id: 'general', label: '一般', sublabel: 'General' },
-    { type: 'item', id: 'shortcuts', label: 'ショートカット', sublabel: 'Shortcuts' },
+    { type: 'item', id: 'general', label: '一般設定' },
+    { type: 'item', id: 'advanced', label: '詳細設定' },
+    { type: 'item', id: 'history', label: '校正履歴' },
     { type: 'header', label: '拡張設定' },
-    { type: 'item', id: 'local-ai', label: 'ローカルAI', sublabel: 'Local AI' },
-    { type: 'item', id: 'custom-prompt', label: 'カスタムプロンプト', sublabel: 'Custom Prompt' },
-    { type: 'item', id: 'dictionary', label: '辞書・置換', sublabel: 'Dictionary' },
-    { type: 'header', label: 'TypZeroについて' },
-    { type: 'item', id: 'about', label: 'このアプリについて', sublabel: 'About' },
+    { type: 'item', id: 'local-ai', label: 'ローカルAI' },
+    { type: 'item', id: 'custom-prompt', label: 'カスタムプロンプト' },
+    { type: 'item', id: 'dictionary', label: '辞書・置換' },
+    { type: 'header', label: 'TYPOZEROについて' },
+    { type: 'item', id: 'about', label: 'TYPOZEROについて' },
   ];
 
   return (
@@ -45,7 +46,7 @@ export default function App() {
           onClick={() => setIsDarkMode(!isDarkMode)}
           className="fixed top-8 right-8 px-4 py-2 rounded-lg bg-white/80 dark:bg-slate-800/80 backdrop-blur-md shadow-lg hover:shadow-xl transition-all"
         >
-          {isDarkMode ? '☀️' : '🌙'} {isDarkMode ? 'Light' : 'Dark'} Mode
+          {isDarkMode ? '☀️' : '🌙'} {isDarkMode ? 'ライト' : 'ダーク'}モード
         </button>
 
         {/* Window Container */}
@@ -83,14 +84,11 @@ export default function App() {
                       key={entry.id}
                       onClick={() => setActiveScreen(entry.id)}
                       className={`w-full text-left px-3 py-2 rounded-md transition-all duration-200 ${activeScreen === entry.id
-                          ? 'bg-slate-400/30 dark:bg-slate-600/40 text-slate-900 dark:text-white shadow-sm'
-                          : 'text-slate-600 dark:text-slate-400 hover:bg-slate-300/20 dark:hover:bg-slate-700/30'
+                        ? 'bg-slate-400/30 dark:bg-slate-600/40 text-slate-900 dark:text-white shadow-sm'
+                        : 'text-slate-600 dark:text-slate-400 hover:bg-slate-300/20 dark:hover:bg-slate-700/30'
                         }`}
                     >
                       <div className="text-[13px]">{entry.label}</div>
-                      {entry.sublabel && (
-                        <div className="text-[11px] opacity-60">{entry.sublabel}</div>
-                      )}
                     </button>
                   );
                 })}
@@ -100,7 +98,8 @@ export default function App() {
             {/* Content Area */}
             <div className="flex-1 overflow-y-auto">
               {activeScreen === 'general' && <GeneralSettings isDarkMode={isDarkMode} />}
-              {activeScreen === 'shortcuts' && <ShortcutsSettings isDarkMode={isDarkMode} />}
+              {activeScreen === 'history' && <HistorySettings isDarkMode={isDarkMode} />}
+              {activeScreen === 'advanced' && <AdvancedSettings isDarkMode={isDarkMode} />}
               {activeScreen === 'local-ai' && <LocalAISettings isDarkMode={isDarkMode} />}
               {activeScreen === 'custom-prompt' && <CustomPromptSettings isDarkMode={isDarkMode} />}
               {activeScreen === 'dictionary' && <DictionarySettings isDarkMode={isDarkMode} />}
