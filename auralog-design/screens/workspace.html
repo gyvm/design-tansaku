@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Q4 Planning Meeting - Auralog</title>
+  <link rel="stylesheet" href="../design-system.css">
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    .workspace-layout {
+      display: flex;
+      height: 100vh;
+      flex-direction: column;
+    }
+
+    /* Top Bar */
+    .workspace-topbar {
+      height: var(--topbar-height);
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      padding: 0 var(--space-6);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .breadcrumbs {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--font-size-body-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .breadcrumb-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .breadcrumb-separator {
+      color: var(--color-text-tertiary);
+    }
+
+    .breadcrumb-item a {
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      transition: color var(--transition-fast);
+    }
+
+    .breadcrumb-item a:hover {
+      color: var(--color-primary);
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    /* Main Content */
+    .workspace-main {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* Left Panel - Transcript */
+    .transcript-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: var(--color-background);
+      border-right: 1px solid var(--color-border);
+    }
+
+    .panel-header {
+      padding: var(--space-6);
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .panel-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-4);
+    }
+
+    .search-bar {
+      position: relative;
+      margin-bottom: var(--space-4);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: var(--space-3);
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--color-text-tertiary);
+    }
+
+    .search-bar input {
+      padding-left: var(--space-10);
+    }
+
+    .transcript-controls {
+      display: flex;
+      gap: var(--space-2);
+    }
+
+    .transcript-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: var(--space-6);
+    }
+
+    .transcript-block {
+      margin-bottom: var(--space-6);
+      padding: var(--space-4);
+      border-radius: var(--radius-md);
+      transition: all var(--transition-fast);
+      cursor: pointer;
+    }
+
+    .transcript-block:hover {
+      background: var(--color-surface);
+    }
+
+    .transcript-block.active {
+      background: var(--color-primary-light);
+    }
+
+    .speaker-label {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      margin-bottom: var(--space-2);
+      font-weight: var(--font-weight-semibold);
+      font-size: var(--font-size-body-sm);
+    }
+
+    .speaker-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: var(--font-size-caption-sm);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .speaker-avatar.speaker-2 {
+      background: #10A37F;
+    }
+
+    .speaker-avatar.speaker-3 {
+      background: #F59E0B;
+    }
+
+    .timestamp {
+      font-size: var(--font-size-caption);
+      color: var(--color-text-tertiary);
+      font-family: var(--font-family-mono);
+    }
+
+    .transcript-text {
+      line-height: var(--line-height-relaxed);
+      color: var(--color-text-primary);
+      white-space: pre-wrap;
+    }
+
+    /* Right Panel - Summary */
+    .summary-panel {
+      width: 400px;
+      display: flex;
+      flex-direction: column;
+      background: var(--color-surface);
+      flex-shrink: 0;
+    }
+
+    .summary-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .tab {
+      flex: 1;
+      padding: var(--space-4);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-secondary);
+      border-bottom: 2px solid transparent;
+      transition: all var(--transition-fast);
+    }
+
+    .tab:hover {
+      color: var(--color-text-primary);
+      background: var(--color-surface-hover);
+    }
+
+    .tab.active {
+      color: var(--color-primary);
+      border-bottom-color: var(--color-primary);
+    }
+
+    .summary-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: var(--space-6);
+    }
+
+    .summary-section {
+      margin-bottom: var(--space-8);
+    }
+
+    .summary-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .section-title {
+      font-size: var(--font-size-h4);
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--space-4);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .summary-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .summary-list li {
+      padding: var(--space-3);
+      margin-bottom: var(--space-2);
+      background: var(--color-background);
+      border-radius: var(--radius-md);
+      line-height: var(--line-height-relaxed);
+    }
+
+    .summary-list li::before {
+      content: "•";
+      color: var(--color-primary);
+      font-weight: bold;
+      display: inline-block;
+      width: 1em;
+      margin-left: -1em;
+      margin-right: var(--space-2);
+    }
+
+    .action-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+      padding: var(--space-4);
+      background: var(--color-background);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-3);
+      border-left: 3px solid var(--color-primary);
+    }
+
+    .action-checkbox {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      flex-shrink: 0;
+      margin-top: 2px;
+      transition: all var(--transition-fast);
+    }
+
+    .action-checkbox:hover {
+      border-color: var(--color-primary);
+    }
+
+    .action-text {
+      flex: 1;
+      line-height: var(--line-height-relaxed);
+    }
+
+    .action-assignee {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      font-size: var(--font-size-caption);
+      color: var(--color-text-tertiary);
+      margin-top: var(--space-1);
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      margin-top: var(--space-3);
+    }
+
+    .tag {
+      padding: var(--space-1) var(--space-3);
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-caption);
+      font-weight: var(--font-weight-medium);
+    }
+
+    /* Audio Player */
+    .audio-player {
+      background: var(--color-surface);
+      border-top: 1px solid var(--color-border);
+      padding: var(--space-5);
+      flex-shrink: 0;
+    }
+
+    .waveform {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      height: 60px;
+      margin-bottom: var(--space-4);
+      cursor: pointer;
+    }
+
+    .waveform-bar {
+      flex: 1;
+      background: var(--color-primary-light);
+      border-radius: 2px;
+      transition: all var(--transition-fast);
+    }
+
+    .waveform-bar:hover {
+      background: var(--color-primary);
+    }
+
+    .waveform-bar.active {
+      background: var(--color-primary);
+    }
+
+    .player-controls {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+    }
+
+    .play-button {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      color: white;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition-fast);
+      flex-shrink: 0;
+    }
+
+    .play-button:hover {
+      background: var(--color-primary-hover);
+      transform: scale(1.05);
+    }
+
+    .player-time {
+      font-size: var(--font-size-body-sm);
+      color: var(--color-text-tertiary);
+      font-family: var(--font-family-mono);
+      min-width: 120px;
+    }
+
+    .player-progress {
+      flex: 1;
+      height: 4px;
+      background: var(--color-border);
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .player-progress-fill {
+      height: 100%;
+      background: var(--color-primary);
+      border-radius: var(--radius-full);
+      width: 28%;
+      position: relative;
+    }
+
+    .player-progress-fill::after {
+      content: '';
+      position: absolute;
+      right: -6px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 12px;
+      height: 12px;
+      background: var(--color-primary);
+      border-radius: 50%;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .player-speed {
+      font-size: var(--font-size-caption);
+      color: var(--color-text-secondary);
+      font-weight: var(--font-weight-medium);
+      padding: var(--space-2) var(--space-3);
+      background: var(--color-background);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      user-select: none;
+      transition: all var(--transition-fast);
+    }
+
+    .player-speed:hover {
+      background: var(--color-surface-hover);
+    }
+
+    /* Scrollbar styling */
+    .transcript-content::-webkit-scrollbar,
+    .summary-content::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .transcript-content::-webkit-scrollbar-track,
+    .summary-content::-webkit-scrollbar-track {
+      background: var(--color-background);
+    }
+
+    .transcript-content::-webkit-scrollbar-thumb,
+    .summary-content::-webkit-scrollbar-thumb {
+      background: var(--color-border);
+      border-radius: var(--radius-full);
+    }
+
+    .transcript-content::-webkit-scrollbar-thumb:hover,
+    .summary-content::-webkit-scrollbar-thumb:hover {
+      background: var(--color-text-tertiary);
+    }
+
+    /* Highlight */
+    .highlight {
+      background: rgba(58, 111, 247, 0.2);
+      border-radius: 2px;
+      padding: 0 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="theme-toggle">
+    <button class="btn btn-secondary btn-icon" onclick="toggleTheme()">
+      <svg class="icon" viewBox="0 0 24 24">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+      </svg>
+    </button>
+  </div>
+
+  <div class="workspace-layout">
+    <!-- Top Bar -->
+    <header class="workspace-topbar">
+      <div class="breadcrumbs">
+        <div class="breadcrumb-item">
+          <a href="#">Dashboard</a>
+        </div>
+        <span class="breadcrumb-separator">/</span>
+        <div class="breadcrumb-item">
+          <a href="#">Recordings</a>
+        </div>
+        <span class="breadcrumb-separator">/</span>
+        <div class="breadcrumb-item">
+          <span style="color: var(--color-text-primary); font-weight: var(--font-weight-medium);">Q4 Planning Meeting</span>
+        </div>
+      </div>
+      <div class="toolbar">
+        <button class="btn btn-ghost btn-icon">
+          <svg class="icon" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+        </button>
+        <button class="btn btn-secondary">
+          <svg class="icon icon-sm" viewBox="0 0 24 24">
+            <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+            <polyline points="16 6 12 2 8 6"></polyline>
+            <line x1="12" y1="2" x2="12" y2="15"></line>
+          </svg>
+          Export
+        </button>
+        <button class="btn btn-secondary btn-icon">
+          <svg class="icon" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="1"></circle>
+            <circle cx="12" cy="5" r="1"></circle>
+            <circle cx="12" cy="19" r="1"></circle>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="workspace-main">
+      <!-- Left Panel - Transcript -->
+      <div class="transcript-panel">
+        <div class="panel-header">
+          <div class="panel-title">
+            <h3>Transcript</h3>
+            <span class="caption">45:32 • 3 speakers</span>
+          </div>
+          <div class="search-bar">
+            <svg class="icon search-icon icon-sm" viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.35-4.35"></path>
+            </svg>
+            <input type="text" class="input" placeholder="Search in transcript...">
+          </div>
+          <div class="transcript-controls">
+            <button class="btn btn-ghost btn-sm">
+              <svg class="icon icon-sm" viewBox="0 0 24 24">
+                <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+              </svg>
+              Edit
+            </button>
+            <button class="btn btn-ghost btn-sm">
+              <svg class="icon icon-sm" viewBox="0 0 24 24">
+                <polyline points="16 18 22 12 16 6"></polyline>
+                <polyline points="8 6 2 12 8 18"></polyline>
+              </svg>
+              Format
+            </button>
+            <button class="btn btn-ghost btn-sm">
+              <svg class="icon icon-sm" viewBox="0 0 24 24">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+              </svg>
+              Regenerate
+            </button>
+          </div>
+        </div>
+
+        <div class="transcript-content">
+          <div class="transcript-block active">
+            <div class="speaker-label">
+              <div class="speaker-avatar">SM</div>
+              <span>Sarah Martinez</span>
+              <span class="timestamp">00:00</span>
+            </div>
+            <p class="transcript-text">Good morning everyone! Thanks for joining our Q4 planning session. Today we need to discuss our strategic priorities, resource allocation, and key initiatives for the final quarter of the year.</p>
+          </div>
+
+          <div class="transcript-block">
+            <div class="speaker-label">
+              <div class="speaker-avatar speaker-2">JD</div>
+              <span>James Davidson</span>
+              <span class="timestamp">00:24</span>
+            </div>
+            <p class="transcript-text">Morning Sarah. I've prepared a brief overview of our current project status. We're tracking well on the mobile app redesign, but we're experiencing some delays with the backend infrastructure updates.</p>
+          </div>
+
+          <div class="transcript-block">
+            <div class="speaker-label">
+              <div class="speaker-avatar">SM</div>
+              <span>Sarah Martinez</span>
+              <span class="timestamp">00:45</span>
+            </div>
+            <p class="transcript-text">Thanks James. Can you elaborate on the backend delays? What's the main blocker there?</p>
+          </div>
+
+          <div class="transcript-block">
+            <div class="speaker-label">
+              <div class="speaker-avatar speaker-2">JD</div>
+              <span>James Davidson</span>
+              <span class="timestamp">00:52</span>
+            </div>
+            <p class="transcript-text">The primary issue is the database migration. We underestimated the complexity of moving to the new schema while maintaining zero downtime. Our DevOps team is working on a phased rollout strategy.</p>
+          </div>
+
+          <div class="transcript-block">
+            <div class="speaker-label">
+              <div class="speaker-avatar speaker-3">EK</div>
+              <span>Emily Kim</span>
+              <span class="timestamp">01:18</span>
+            </div>
+            <p class="transcript-text">I can add some context here. We've identified three critical paths for the migration. The challenge is coordinating across multiple microservices without disrupting production. I propose we allocate two additional engineers to this effort for the next sprint.</p>
+          </div>
+
+          <div class="transcript-block">
+            <div class="speaker-label">
+              <div class="speaker-avatar">SM</div>
+              <span>Sarah Martinez</span>
+              <span class="timestamp">01:42</span>
+            </div>
+            <p class="transcript-text">That sounds reasonable. Let's make that a priority action item. Emily, can you draft a resource plan by end of week? Meanwhile, let's discuss our Q4 revenue targets and how these technical initiatives align with our business goals.</p>
+          </div>
+
+          <div class="transcript-block">
+            <div class="speaker-label">
+              <div class="speaker-avatar speaker-2">JD</div>
+              <span>James Davidson</span>
+              <span class="timestamp">02:08</span>
+            </div>
+            <p class="transcript-text">Absolutely. We're projecting a 15% increase in user engagement once the new mobile experience launches. The analytics dashboard redesign should also give us better insights into user behavior, which directly supports our data-driven decision making initiative.</p>
+          </div>
+
+          <div class="transcript-block">
+            <div class="speaker-label">
+              <div class="speaker-avatar speaker-3">EK</div>
+              <span>Emily Kim</span>
+              <span class="timestamp">02:35</span>
+            </div>
+            <p class="transcript-text">I agree. We should also consider the integration with the new CRM system. That's another major piece for Q4. The sales team is depending on this to improve their workflow efficiency.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Panel - Summary -->
+      <div class="summary-panel">
+        <div class="summary-tabs">
+          <button class="tab active">Summary</button>
+          <button class="tab">Action Items</button>
+          <button class="tab">Notes</button>
+        </div>
+
+        <div class="summary-content">
+          <!-- Summary Section -->
+          <div class="summary-section">
+            <h4 class="section-title">
+              <svg class="icon icon-sm" viewBox="0 0 24 24">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+              Overview
+            </h4>
+            <p style="line-height: var(--line-height-relaxed); margin-bottom: var(--space-4);">
+              Q4 planning session focused on strategic priorities, resource allocation, and key technical initiatives. Main discussion centered around mobile app redesign progress and backend infrastructure challenges.
+            </p>
+          </div>
+
+          <!-- Key Points -->
+          <div class="summary-section">
+            <h4 class="section-title">
+              <svg class="icon icon-sm" viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              Key Points
+            </h4>
+            <ul class="summary-list">
+              <li>Mobile app redesign is on track with expected 15% increase in user engagement</li>
+              <li>Backend infrastructure updates experiencing delays due to complex database migration</li>
+              <li>DevOps team implementing phased rollout strategy for zero-downtime migration</li>
+              <li>Three critical paths identified for microservices coordination</li>
+              <li>CRM system integration is a major Q4 dependency for sales team</li>
+            </ul>
+          </div>
+
+          <!-- Decisions Made -->
+          <div class="summary-section">
+            <h4 class="section-title">
+              <svg class="icon icon-sm" viewBox="0 0 24 24">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              Decisions Made
+            </h4>
+            <ul class="summary-list">
+              <li>Allocate two additional engineers to backend migration effort</li>
+              <li>Prioritize database migration as critical path item</li>
+              <li>Resource plan to be drafted by end of week</li>
+            </ul>
+          </div>
+
+          <!-- Action Items -->
+          <div class="summary-section">
+            <h4 class="section-title">
+              <svg class="icon icon-sm" viewBox="0 0 24 24">
+                <path d="M9 11l3 3L22 4"></path>
+                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+              </svg>
+              Action Items
+            </h4>
+
+            <div class="action-item">
+              <div class="action-checkbox"></div>
+              <div>
+                <div class="action-text">Draft resource allocation plan for backend migration team expansion</div>
+                <div class="action-assignee">
+                  <svg class="icon icon-sm" viewBox="0 0 24 24">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                  Emily Kim • Due: End of week
+                </div>
+              </div>
+            </div>
+
+            <div class="action-item">
+              <div class="action-checkbox"></div>
+              <div>
+                <div class="action-text">Coordinate with DevOps on phased rollout timeline and milestones</div>
+                <div class="action-assignee">
+                  <svg class="icon icon-sm" viewBox="0 0 24 24">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                  James Davidson • Due: Next sprint
+                </div>
+              </div>
+            </div>
+
+            <div class="action-item">
+              <div class="action-checkbox"></div>
+              <div>
+                <div class="action-text">Review and validate analytics dashboard metrics for user behavior tracking</div>
+                <div class="action-assignee">
+                  <svg class="icon icon-sm" viewBox="0 0 24 24">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                  Sarah Martinez • Due: Q4 Start
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Topics -->
+          <div class="summary-section">
+            <h4 class="section-title">
+              <svg class="icon icon-sm" viewBox="0 0 24 24">
+                <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                <line x1="7" y1="7" x2="7.01" y2="7"></line>
+              </svg>
+              Topics
+            </h4>
+            <div class="tag-list">
+              <span class="tag">Q4 Planning</span>
+              <span class="tag">Backend Migration</span>
+              <span class="tag">Mobile App</span>
+              <span class="tag">CRM Integration</span>
+              <span class="tag">Resource Allocation</span>
+              <span class="tag">DevOps</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Audio Player -->
+    <div class="audio-player">
+      <div class="waveform">
+        <div class="waveform-bar active" style="height: 40%;"></div>
+        <div class="waveform-bar active" style="height: 60%;"></div>
+        <div class="waveform-bar active" style="height: 50%;"></div>
+        <div class="waveform-bar active" style="height: 75%;"></div>
+        <div class="waveform-bar active" style="height: 45%;"></div>
+        <div class="waveform-bar active" style="height: 80%;"></div>
+        <div class="waveform-bar active" style="height: 55%;"></div>
+        <div class="waveform-bar" style="height: 65%;"></div>
+        <div class="waveform-bar" style="height: 40%;"></div>
+        <div class="waveform-bar" style="height: 70%;"></div>
+        <div class="waveform-bar" style="height: 50%;"></div>
+        <div class="waveform-bar" style="height: 85%;"></div>
+        <div class="waveform-bar" style="height: 45%;"></div>
+        <div class="waveform-bar" style="height: 60%;"></div>
+        <div class="waveform-bar" style="height: 55%;"></div>
+        <div class="waveform-bar" style="height: 75%;"></div>
+        <div class="waveform-bar" style="height: 50%;"></div>
+        <div class="waveform-bar" style="height: 65%;"></div>
+        <div class="waveform-bar" style="height: 40%;"></div>
+        <div class="waveform-bar" style="height: 80%;"></div>
+        <div class="waveform-bar" style="height: 55%;"></div>
+        <div class="waveform-bar" style="height: 70%;"></div>
+        <div class="waveform-bar" style="height: 45%;"></div>
+        <div class="waveform-bar" style="height: 60%;"></div>
+        <div class="waveform-bar" style="height: 50%;"></div>
+        <div class="waveform-bar" style="height: 65%;"></div>
+        <div class="waveform-bar" style="height: 40%;"></div>
+        <div class="waveform-bar" style="height: 75%;"></div>
+        <div class="waveform-bar" style="height: 55%;"></div>
+        <div class="waveform-bar" style="height: 80%;"></div>
+      </div>
+      <div class="player-controls">
+        <button class="play-button">
+          <svg class="icon" viewBox="0 0 24 24" style="stroke: currentColor;">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+        </button>
+        <span class="player-time">12:34 / 45:32</span>
+        <div class="player-progress">
+          <div class="player-progress-fill"></div>
+        </div>
+        <div class="player-speed">1.0x</div>
+        <button class="btn btn-ghost btn-icon">
+          <svg class="icon icon-sm" viewBox="0 0 24 24">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    }
+
+    // Load saved theme
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+
+    // Tab switching
+    const tabs = document.querySelectorAll('.tab');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+      });
+    });
+
+    // Transcript block interaction
+    const transcriptBlocks = document.querySelectorAll('.transcript-block');
+    transcriptBlocks.forEach(block => {
+      block.addEventListener('click', () => {
+        transcriptBlocks.forEach(b => b.classList.remove('active'));
+        block.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
