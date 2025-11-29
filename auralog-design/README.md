@@ -2,6 +2,8 @@
 
 A modern, intelligent design system for a cross-platform desktop application that automatically generates detailed meeting minutes from imported audio recordings using AI.
 
+Built with **React 18.3.1 + TypeScript**, **Vite 6.3.5**, and **Tailwind CSS** following the Design-Tansaku technology stack.
+
 ## Overview
 
 Auralog is designed to feel **modern, calm, and intelligent**, avoiding playful or childish patterns. The application communicates trust, productivity, and precision through a semi-professional aesthetic similar to Notion, Linear, or Raycast.
@@ -26,31 +28,40 @@ Auralog is designed to feel **modern, calm, and intelligent**, avoiding playful 
 
 ```
 auralog-design/
-├── index.html              # Main navigation hub
-├── design-system.css       # Core design system (colors, typography, spacing)
-├── components.html         # Complete component library
-├── documentation.html      # Comprehensive design guidelines
-├── screens/
-│   ├── onboarding.html    # Welcome & onboarding screen
-│   ├── dashboard.html     # Main dashboard with recordings
-│   ├── import.html        # Audio file import workflow
-│   ├── workspace.html     # Transcript editing workspace
-│   └── settings.html      # Application settings
-└── README.md              # This file
+├── src/
+│   ├── components/
+│   │   ├── ui/                  # Radix UI ベースコンポーネント
+│   │   ├── buttons.tsx
+│   │   ├── containers.tsx
+│   │   ├── information.tsx
+│   │   ├── inputs.tsx
+│   │   └── navigation.tsx
+│   ├── guidelines/
+│   │   └── Guidelines.md
+│   ├── styles/
+│   │   └── globals.css
+│   ├── App.tsx
+│   ├── index.css
+│   └── main.tsx
+├── index.html
+├── package.json
+├── vite.config.ts
+├── tailwind.config.js
+└── README.md
 ```
 
 ## 🚀 Getting Started
 
-1. Open `index.html` in a modern web browser
-2. Navigate to different screens and the component library
-3. Toggle between light and dark mode using the theme switcher (top-right corner)
+### Installation & Setup
 
-### Viewing the Designs
+```bash
+npm i                # Install dependencies
+npm run dev          # Start development server (localhost:5173)
+npm run build        # Build for production
+```
 
-- **Main Hub:** `index.html` - Overview and navigation
-- **Components:** `components.html` - All UI components
-- **Documentation:** `documentation.html` - Design guidelines
-- **Screens:** Navigate to individual screens in the `screens/` folder
+Navigate to the development server URL shown in your terminal.
+Toggle between light and dark mode using the theme switcher (top-right corner).
 
 ## 📐 Design System Components
 
@@ -226,46 +237,28 @@ cubic-bezier(0.4, 0, 0.2, 1)
 
 ## 🛠️ Implementation Notes
 
-### CSS Variables
-All design tokens are implemented as CSS custom properties:
+See `AGENTS.md` for comprehensive technology stack details including:
+- Tailwind CSS utilities
+- Radix UI component patterns
+- CVA (class-variance-authority) usage
+- Theme configuration with next-themes
+- TypeScript best practices
 
-```css
-/* Colors */
-var(--color-primary)
-var(--color-text-primary)
-var(--color-background)
+### Typography
+Use Tailwind CSS classes for consistent typography:
 
-/* Spacing */
-var(--space-4)
-var(--space-6)
-
-/* Border Radius */
-var(--radius-md)
-var(--radius-lg)
-
-/* Shadows */
-var(--shadow-md)
-var(--shadow-lg)
-
-/* Transitions */
-var(--transition-fast)
+```tsx
+<h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+  Heading 1
+</h1>
+<p className="leading-7 [&:not(:first-child)]:mt-6">
+  Body text
+</p>
+<span className="text-sm font-medium leading-none">Caption</span>
 ```
 
-### Typography Classes
-Use utility classes for consistent typography:
-
-```html
-<h1 class="display">Large display text</h1>
-<p class="body">Regular body text</p>
-<span class="caption">Small caption text</span>
-```
-
-### Theme Attribute
-Toggle theme by setting the `data-theme` attribute:
-
-```javascript
-document.documentElement.setAttribute('data-theme', 'dark');
-```
+### Theme Management
+Theme toggling is handled by `next-themes` package:
 
 ## 📋 Design Principles
 
@@ -324,14 +317,14 @@ Designed for cross-platform desktop deployment:
 
 ## 📞 Support & Documentation
 
-- Component Library: `components.html`
-- Design Guidelines: `documentation.html`
-- Screen Examples: `screens/` directory
+- Design Guidelines: `src/guidelines/Guidelines.md`
+- Main Application: `src/App.tsx`
+- Component Library: `src/components/`
 
 ## 🔄 Version
 
-**Version:** 1.0.0
-**Last Updated:** 2024
+**Version:** 0.1.0
+**Last Updated:** 2025
 
 ## 📝 License
 
@@ -339,4 +332,4 @@ This design system is created for the Auralog desktop application.
 
 ---
 
-**Built with modern web standards:** HTML5, CSS3 Custom Properties, vanilla JavaScript for theme toggling and interactions.
+**Built with React 18.3.1 + TypeScript**, powered by **Vite**, **Tailwind CSS**, and **Radix UI**.

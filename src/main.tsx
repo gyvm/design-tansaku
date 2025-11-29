@@ -1,0 +1,85 @@
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+
+import Home from './pages/Home';
+import NotFound from './pages/NotFound';
+
+// Import individual project apps
+import ComponentLibraryApp from './pages/component-library/App';
+import SettingsWindowApp from './pages/settings-window/App';
+import AuralogApp from './pages/auralog/App';
+import TypoZeroApp from './pages/typozero/App';
+import AppBooksApp from './pages/appbooks/App';
+
+import './styles/globals.css';
+
+// Layout wrapper for each project
+function ProjectLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="min-h-screen">
+      {children}
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        
+        {/* Design System Projects */}
+        <Route 
+          path="/component-library" 
+          element={
+            <ProjectLayout>
+              <ComponentLibraryApp />
+            </ProjectLayout>
+          } 
+        />
+        <Route 
+          path="/settings-window" 
+          element={
+            <ProjectLayout>
+              <SettingsWindowApp />
+            </ProjectLayout>
+          } 
+        />
+        <Route 
+          path="/auralog" 
+          element={
+            <ProjectLayout>
+              <AuralogApp />
+            </ProjectLayout>
+          } 
+        />
+        <Route 
+          path="/typozero" 
+          element={
+            <ProjectLayout>
+              <TypoZeroApp />
+            </ProjectLayout>
+          } 
+        />
+        <Route 
+          path="/appbooks" 
+          element={
+            <ProjectLayout>
+              <AppBooksApp />
+            </ProjectLayout>
+          } 
+        />
+
+        {/* 404 Page */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
