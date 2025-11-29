@@ -1,20 +1,40 @@
 import { useState } from 'react';
 import { GeneralSettings } from './components/GeneralSettings';
 import { ShortcutsSettings } from './components/ShortcutsSettings';
-import { AdvancedSettings } from './components/AdvancedSettings';
+import { LocalAISettings } from './components/LocalAISettings';
+import { CustomPromptSettings } from './components/CustomPromptSettings';
+import { DictionarySettings } from './components/DictionarySettings';
 import { AboutSettings } from './components/AboutSettings';
 
-type Screen = 'general' | 'shortcuts' | 'advanced' | 'about';
+type Screen = 'general' | 'shortcuts' | 'local-ai' | 'custom-prompt' | 'dictionary' | 'about';
+
+type NavItem = {
+  type: 'item';
+  id: Screen;
+  label: string;
+  sublabel?: string;
+};
+
+type NavHeader = {
+  type: 'header';
+  label: string;
+};
+
+type NavEntry = NavItem | NavHeader;
 
 export default function App() {
   const [activeScreen, setActiveScreen] = useState<Screen>('general');
   const [isDarkMode, setIsDarkMode] = useState(false);
 
-  const navItems = [
-    { id: 'general' as Screen, label: '一般', sublabel: 'General' },
-    { id: 'shortcuts' as Screen, label: 'ショートカット', sublabel: 'Shortcuts' },
-    { id: 'advanced' as Screen, label: '詳細設定', sublabel: 'Advanced' },
-    { id: 'about' as Screen, label: 'このアプリについて', sublabel: 'About' },
+  const navStructure: NavEntry[] = [
+    { type: 'item', id: 'general', label: '一般', sublabel: 'General' },
+    { type: 'item', id: 'shortcuts', label: 'ショートカット', sublabel: 'Shortcuts' },
+    { type: 'header', label: '拡張設定' },
+    { type: 'item', id: 'local-ai', label: 'ローカルAI', sublabel: 'Local AI' },
+    { type: 'item', id: 'custom-prompt', label: 'カスタムプロンプト', sublabel: 'Custom Prompt' },
+    { type: 'item', id: 'dictionary', label: '辞書・置換', sublabel: 'Dictionary' },
+    { type: 'header', label: 'TypZeroについて' },
+    { type: 'item', id: 'about', label: 'このアプリについて', sublabel: 'About' },
   ];
 
   return (
@@ -47,20 +67,33 @@ export default function App() {
             {/* Sidebar */}
             <div className="w-[180px] bg-slate-50/80 dark:bg-slate-800/50 backdrop-blur-md border-r border-slate-200/60 dark:border-slate-700/60 p-3">
               <nav className="space-y-1">
-                {navItems.map((item) => (
-                  <button
-                    key={item.id}
-                    onClick={() => setActiveScreen(item.id)}
-                    className={`w-full text-left px-3 py-2 rounded-md transition-all duration-200 ${
-                      activeScreen === item.id
-                        ? 'bg-slate-400/30 dark:bg-slate-600/40 text-slate-900 dark:text-white shadow-sm'
-                        : 'text-slate-600 dark:text-slate-400 hover:bg-slate-300/20 dark:hover:bg-slate-700/30'
-                    }`}
-                  >
-                    <div className="text-[13px]">{item.label}</div>
-                    <div className="text-[11px] opacity-60">{item.sublabel}</div>
-                  </button>
-                ))}
+                {navStructure.map((entry, index) => {
+                  if (entry.type === 'header') {
+                    return (
+                      <div key={`header-${index}`} className="px-3 pt-4 pb-2">
+                        <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                          {entry.label}
+                        </span>
+                      </div>
+                    );
+                  }
+
+                  return (
+                    <button
+                      key={entry.id}
+                      onClick={() => setActiveScreen(entry.id)}
+                      className={`w-full text-left px-3 py-2 rounded-md transition-all duration-200 ${activeScreen === entry.id
+                          ? 'bg-slate-400/30 dark:bg-slate-600/40 text-slate-900 dark:text-white shadow-sm'
+                          : 'text-slate-600 dark:text-slate-400 hover:bg-slate-300/20 dark:hover:bg-slate-700/30'
+                        }`}
+                    >
+                      <div className="text-[13px]">{entry.label}</div>
+                      {entry.sublabel && (
+                        <div className="text-[11px] opacity-60">{entry.sublabel}</div>
+                      )}
+                    </button>
+                  );
+                })}
               </nav>
             </div>
 
@@ -68,7 +101,9 @@ export default function App() {
             <div className="flex-1 overflow-y-auto">
               {activeScreen === 'general' && <GeneralSettings isDarkMode={isDarkMode} />}
               {activeScreen === 'shortcuts' && <ShortcutsSettings isDarkMode={isDarkMode} />}
-              {activeScreen === 'advanced' && <AdvancedSettings isDarkMode={isDarkMode} />}
+              {activeScreen === 'local-ai' && <LocalAISettings isDarkMode={isDarkMode} />}
+              {activeScreen === 'custom-prompt' && <CustomPromptSettings isDarkMode={isDarkMode} />}
+              {activeScreen === 'dictionary' && <DictionarySettings isDarkMode={isDarkMode} />}
               {activeScreen === 'about' && <AboutSettings isDarkMode={isDarkMode} />}
             </div>
           </div>
