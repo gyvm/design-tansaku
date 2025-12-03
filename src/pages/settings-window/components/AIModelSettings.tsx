@@ -71,14 +71,14 @@ export function AIModelSettings({ isDarkMode }: AIModelSettingsProps) {
     // useEffect(() => { checkOllamaConnection(); }, []);
 
     return (
-        <div className="p-8 pb-20">
-            <h1 className="text-[24px] text-slate-500 dark:text-slate-400 font-light mb-2">AIモデル</h1>
-            <p className="text-[13px] text-slate-500 dark:text-slate-400 mb-8">
+        <div className="p-6 pb-10">
+            <h1 className="text-[20px] text-slate-500 dark:text-slate-400 font-light mb-1">AIモデル</h1>
+            <p className="text-[12px] text-slate-500 dark:text-slate-400 mb-6">
                 校正に使用するAIモデルの設定を行います。
             </p>
 
             {/* BYOK Section */}
-            <div className="mb-8">
+            <div className="mb-6">
                 <div className="flex items-center justify-between mb-4">
                     <h3 className="text-[15px] text-slate-900 dark:text-white font-medium flex items-center gap-2">
                         <Key className="w-4 h-4 text-slate-500" />
@@ -133,7 +133,7 @@ export function AIModelSettings({ isDarkMode }: AIModelSettingsProps) {
             </div>
 
             {/* Ollama Section */}
-            <div className="mb-8">
+            <div className="mb-6">
                 <div className="flex items-center justify-between mb-4">
                     <h3 className="text-[15px] text-slate-900 dark:text-white font-medium flex items-center gap-2">
                         <Server className="w-4 h-4 text-slate-500" />

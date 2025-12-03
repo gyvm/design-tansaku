@@ -49,7 +49,7 @@ export default function App() {
         </button>
 
         {/* Window Container */}
-        <div className="w-[700px] h-[500px] bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl rounded-xl shadow-2xl overflow-hidden">
+        <div className="w-[1000px] h-[700px] bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl rounded-xl shadow-2xl overflow-hidden">
           {/* Traffic Light Buttons */}
           <div className="h-[52px] flex items-center px-4 border-b border-slate-200/60 dark:border-slate-700/60 bg-white/40 dark:bg-slate-800/40 backdrop-blur-md">
             <div className="flex gap-2">
@@ -65,7 +65,7 @@ export default function App() {
           {/* Main Content */}
           <div className="flex h-[calc(100%-52px)]">
             {/* Sidebar */}
-            <div className="w-[180px] bg-slate-50/80 dark:bg-slate-800/50 backdrop-blur-md border-r border-slate-200/60 dark:border-slate-700/60 p-3">
+            <div className="w-[220px] bg-slate-50/80 dark:bg-slate-800/50 backdrop-blur-md border-r border-slate-200/60 dark:border-slate-700/60 p-3">
               <nav className="space-y-1">
                 {navStructure.map((entry, index) => {
                   if (entry.type === 'header') {

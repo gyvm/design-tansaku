@@ -6,11 +6,11 @@ interface AboutSettingsProps {
 
 export function AboutSettings({ isDarkMode }: AboutSettingsProps) {
   return (
-    <div className="p-8">
-      <h1 className="text-[24px] text-slate-900 dark:text-white mb-8">このアプリについて</h1>
+    <div className="p-6">
+      <h1 className="text-[20px] text-slate-900 dark:text-white mb-6">このアプリについて</h1>
 
       {/* App Icon and Info */}
-      <div className="mb-6">
+      <div className="mb-5">
         <div className="bg-white/60 dark:bg-slate-800/40 backdrop-blur-sm rounded-xl p-8 border border-slate-200/60 dark:border-slate-700/60 text-center">
           {/* App Icon */}
           <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-slate-400 to-slate-600 dark:from-slate-500 dark:to-slate-700 rounded-2xl shadow-lg mb-4">
@@ -28,7 +28,7 @@ export function AboutSettings({ isDarkMode }: AboutSettingsProps) {
       </div>
 
       {/* Description */}
-      <div className="mb-6">
+      <div className="mb-5">
         <div className="bg-white/60 dark:bg-slate-800/40 backdrop-blur-sm rounded-xl p-6 border border-slate-200/60 dark:border-slate-700/60">
           <p className="text-[13px] text-slate-700 dark:text-slate-300 leading-relaxed mb-3">
             TypoZeroは、ビジネス・プロフェッショナル向けの高精度テキスト校正ユーティリティです。
@@ -42,7 +42,7 @@ export function AboutSettings({ isDarkMode }: AboutSettingsProps) {
       </div>
 
       {/* Links */}
-      <div className="mb-6">
+      <div className="mb-5">
         <div className="bg-white/60 dark:bg-slate-800/40 backdrop-blur-sm rounded-xl p-6 border border-slate-200/60 dark:border-slate-700/60">
           <h3 className="text-[15px] text-slate-900 dark:text-white mb-4">リンク</h3>
 
@@ -107,7 +107,7 @@ export function AboutSettings({ isDarkMode }: AboutSettingsProps) {
       </div>
 
       {/* Credits */}
-      <div className="mb-6">
+      <div className="mb-4">
         <div className="bg-white/60 dark:bg-slate-800/40 backdrop-blur-sm rounded-xl p-6 border border-slate-200/60 dark:border-slate-700/60">
           <h3 className="text-[15px] text-slate-900 dark:text-white mb-4">クレジット</h3>
 

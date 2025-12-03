@@ -51,16 +51,16 @@ export function HistorySettings({ isDarkMode }: HistorySettingsProps) {
     };
 
     return (
-        <div className="p-8 max-w-4xl mx-auto">
-            <div className="mb-8">
-                <h1 className="text-[24px] text-slate-900 dark:text-white mb-2">校正履歴</h1>
+        <div className="p-6">
+            <div className="mb-6">
+                <h1 className="text-[20px] text-slate-900 dark:text-white mb-1">校正履歴</h1>
                 <p className="text-slate-500 dark:text-slate-400 text-sm">
                     過去の校正履歴を確認・管理できます。履歴の保存設定や一括削除も可能です。
                 </p>
             </div>
 
             {/* Controls Section */}
-            <div className={`rounded-xl border ${isDarkMode ? 'border-slate-700 bg-slate-800/50' : 'border-slate-200 bg-white'} p-6 mb-8`}>
+            <div className={`rounded-xl border ${isDarkMode ? 'border-slate-700 bg-slate-800/50' : 'border-slate-200 bg-white'} p-5 mb-6`}>
                 <div className="flex items-center justify-between mb-6">
                     <div>
                         <div className="text-sm font-medium text-slate-900 dark:text-white mb-1">

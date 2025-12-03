@@ -34,15 +34,15 @@ export function GeneralSettings({ isDarkMode }: GeneralSettingsProps) {
   };
 
   return (
-    <div className="p-8">
-      <h1 className="text-[24px] text-slate-500 dark:text-slate-400 font-light mb-2">一般設定</h1>
-      <p className="text-[13px] text-slate-500 dark:text-slate-400 mb-8">
+    <div className="p-6">
+      <h1 className="text-[20px] text-slate-500 dark:text-slate-400 font-light mb-1">一般設定</h1>
+      <p className="text-[12px] text-slate-500 dark:text-slate-400 mb-6">
         ショートカットキーの変更や校正で利用する言語を変更できます。
       </p>
 
       {/* Proofreading Language */}
-      <div className="mb-8">
-        <h3 className="text-[15px] text-slate-900 dark:text-white mb-4 font-medium">校正言語</h3>
+      <div className="mb-6">
+        <h3 className="text-[14px] text-slate-900 dark:text-white mb-3 font-medium">校正言語</h3>
         <div className="bg-white/60 dark:bg-slate-800/40 backdrop-blur-sm rounded-xl p-6 border border-slate-200/60 dark:border-slate-700/60">
           <select
             value={language}
@@ -58,8 +58,8 @@ export function GeneralSettings({ isDarkMode }: GeneralSettingsProps) {
       </div>
 
       {/* Proofreading Tone */}
-      <div className="mb-8">
-        <h3 className="text-[15px] text-slate-900 dark:text-white mb-4 font-medium">校正トーン</h3>
+      <div className="mb-6">
+        <h3 className="text-[14px] text-slate-900 dark:text-white mb-3 font-medium">校正トーン</h3>
         <div className="bg-white/60 dark:bg-slate-800/40 backdrop-blur-sm rounded-xl p-6 border border-slate-200/60 dark:border-slate-700/60">
           <div className="mb-6">
             <input
@@ -86,8 +86,8 @@ export function GeneralSettings({ isDarkMode }: GeneralSettingsProps) {
       </div>
 
       {/* Shortcuts */}
-      <div className="mb-8">
-        <h3 className="text-[15px] text-slate-900 dark:text-white mb-4 font-medium">ショートカットキー</h3>
+      <div className="mb-6">
+        <h3 className="text-[14px] text-slate-900 dark:text-white mb-3 font-medium">ショートカットキー</h3>
 
         <div className="bg-white/60 dark:bg-slate-800/40 backdrop-blur-sm rounded-xl border border-slate-200/60 dark:border-slate-700/60 overflow-hidden">
           {/* Direct Mode Row */}

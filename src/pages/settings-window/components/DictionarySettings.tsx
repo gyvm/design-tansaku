@@ -114,14 +114,14 @@ export function DictionarySettings({ isDarkMode }: DictionarySettingsProps) {
     };
 
     return (
-        <div className="p-8 pb-20">
-            <h1 className="text-[24px] text-slate-500 dark:text-slate-400 font-light mb-2">辞書・置換</h1>
-            <p className="text-[13px] text-slate-500 dark:text-slate-400 mb-8">
+        <div className="p-6 pb-10">
+            <h1 className="text-[20px] text-slate-500 dark:text-slate-400 font-light mb-1">辞書・置換</h1>
+            <p className="text-[12px] text-slate-500 dark:text-slate-400 mb-6">
                 よく利用する単語を登録したり、置換ルールを設定できます。
             </p>
 
             {/* Custom Dictionary Section */}
-            <div className="mb-8">
+            <div className="mb-6">
                 <div className="flex items-center justify-between mb-4">
                     <h3 className="text-[15px] text-slate-900 dark:text-white font-medium flex items-center gap-2">
                         <BookA className="w-4 h-4 text-slate-500" />
@@ -206,7 +206,7 @@ export function DictionarySettings({ isDarkMode }: DictionarySettingsProps) {
             </div>
 
             {/* Replacement Rules Section */}
-            <div className="mb-8">
+            <div className="mb-6">
                 <div className="flex items-center justify-between mb-4">
                     <h3 className="text-[15px] text-slate-900 dark:text-white font-medium flex items-center gap-2">
                         <RefreshCw className="w-4 h-4 text-slate-500" />

@@ -23,14 +23,14 @@ export function AdvancedSettings({ isDarkMode }: AdvancedSettingsProps) {
   };
 
   return (
-    <div className="p-8">
-      <h1 className="text-[24px] text-slate-900 dark:text-white mb-2">詳細設定</h1>
-      <p className="text-[13px] text-slate-500 dark:text-slate-400 mb-8">
+    <div className="p-6">
+      <h1 className="text-[20px] text-slate-900 dark:text-white mb-1">詳細設定</h1>
+      <p className="text-[12px] text-slate-500 dark:text-slate-400 mb-6">
         Advanced configuration options
       </p>
 
       {/* API Key */}
-      <div className="mb-6">
+      <div className="mb-5">
         <div className="bg-white/60 dark:bg-slate-800/40 backdrop-blur-sm rounded-xl p-6 border border-slate-200/60 dark:border-slate-700/60">
           <h3 className="text-[15px] text-slate-900 dark:text-white mb-1">APIキー</h3>
           <p className="text-[12px] text-slate-500 dark:text-slate-400 mb-4">
@@ -64,7 +64,7 @@ export function AdvancedSettings({ isDarkMode }: AdvancedSettingsProps) {
       </div>
 
       {/* Request Timeout */}
-      <div className="mb-6">
+      <div className="mb-5">
         <div className="bg-white/60 dark:bg-slate-800/40 backdrop-blur-sm rounded-xl p-6 border border-slate-200/60 dark:border-slate-700/60">
           <h3 className="text-[15px] text-slate-900 dark:text-white mb-1">リクエストタイムアウト</h3>
           <p className="text-[12px] text-slate-500 dark:text-slate-400 mb-4">
@@ -95,7 +95,7 @@ export function AdvancedSettings({ isDarkMode }: AdvancedSettingsProps) {
       </div>
 
       {/* Performance Settings */}
-      <div className="mb-6">
+      <div className="mb-5">
         <div className="bg-white/60 dark:bg-slate-800/40 backdrop-blur-sm rounded-xl p-6 border border-slate-200/60 dark:border-slate-700/60">
           <h3 className="text-[15px] text-slate-900 dark:text-white mb-4">パフォーマンス</h3>
           
@@ -131,7 +131,7 @@ export function AdvancedSettings({ isDarkMode }: AdvancedSettingsProps) {
       </div>
 
       {/* Reset Button */}
-      <div className="mb-6">
+      <div className="mb-4">
         <div className="bg-white/60 dark:bg-slate-800/40 backdrop-blur-sm rounded-xl p-6 border border-slate-200/60 dark:border-slate-700/60">
           <h3 className="text-[15px] text-slate-900 dark:text-white mb-1">設定をリセット</h3>
           <p className="text-[12px] text-slate-500 dark:text-slate-400 mb-4">

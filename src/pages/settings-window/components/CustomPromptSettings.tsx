@@ -97,9 +97,9 @@ export function CustomPromptSettings({ isDarkMode }: CustomPromptSettingsProps) 
     };
 
     return (
-        <div className="p-8 pb-20">
-            <h1 className="text-[24px] text-slate-500 dark:text-slate-400 font-light mb-2">カスタムプロンプト</h1>
-            <p className="text-[13px] text-slate-500 dark:text-slate-400 mb-8">
+        <div className="p-6 pb-10">
+            <h1 className="text-[20px] text-slate-500 dark:text-slate-400 font-light mb-1">カスタムプロンプト</h1>
+            <p className="text-[12px] text-slate-500 dark:text-slate-400 mb-6">
                 独自のプロンプトを作成してショートカットを割り当てることができます。
             </p>
 
